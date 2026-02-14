@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Valentine Surprise ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff4e8b, #ff9ecf);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            margin-top: 15%;
+            z-index: 10;
+            position: relative;
+            padding: 0 10px;
+        }
+
+        button {
+            padding: 18px 30px;
+            margin: 15px;
+            font-size: 22px;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            background-color: white;
+            color: #ff4e8b;
+            min-width: 200px;
+        }
+
+        button:hover {
+            background-color: #ffe6f0;
+        }
+
+        .hidden {
+            display: none;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        .letter-box {
+            width: 220px;
+            height: 140px;
+            background-color: #fff;
+            color: #ff4e8b;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .heart, .sparkle {
+            position: absolute;
+            pointer-events: none;
+            animation: float 8s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.5); opacity:0.7; }
+            100% { transform: translateY(-10vh) scale(1); opacity:1; }
+        }
+
+        /* Responsive Letter Text */
+        #letter2 p {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Background Music -->
+<audio id="music" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c9d5c5a1d.mp3?filename=romantic-music-10831.mp3" autoplay loop></audio>
+
+<!-- Question 1 -->
+<div class="container" id="step1">
+    <h1 style="font-size:28px;">Will you be my Valentine, Babie? ❤️</h1>
+    <button onclick="answerQ1(true)">Yes I will</button>
+    <button onclick="answerQ1(false)">No I will not</button>
+    <p id="error1" class="hidden">Try again ❤️</p>
+</div>
+
+<!-- Question 2 -->
+<div class="container hidden" id="step2">
+    <h1 style="font-size:28px;">Do you want to have amm amm on Valentine’s Day, Babie? 💌</h1>
+    <button onclick="answerQ2(true)">Yes I will</button>
+    <button onclick="answerQ2(false)">No I will not</button>
+    <p id="error2" class="hidden">Try again ❤️</p>
+</div>
+
+<!-- Letter Box -->
+<div class="container hidden" id="step3">
+    <h1 style="font-size:28px;">Open your special Valentine letter 💝</h1>
+    <div class="letter-box" onclick="openLetter()">Tap me 💌</div>
+    <div id="letter1" class="hidden">
+        <p>💌 A little letter for you...</p>
+    </div>
+    <div id="letter2" class="hidden">
+        <p>My dearest Babie,</p>
+        <p>Every moment with you is a treasure. You make my life brighter and my heart happier. I can’t wait to celebrate Valentine’s Day with you. 💖</p>
+        <p>Forever yours, Faizan ❤️</p>
+    </div>
+</div>
+
+<script>
+let letterStage = 0;
+
+// Question Functions
+function answerQ1(isYes) {
+    if(isYes) {
+        document.getElementById("step1").classList.add("hidden");
+        document.getElementById("step2").classList.remove("hidden");
+    } else {
+        document.getElementById("error1").classList.remove("hidden");
+    }
+}
+
+function answerQ2(isYes) {
+    if(isYes) {
+        document.getElementById("step2").classList.add("hidden");
+        document.getElementById("step3").classList.remove("hidden");
+    } else {
+        document.getElementById("error2").classList.remove("hidden");
+    }
+}
+
+// Letter Function
+function openLetter() {
+    letterStage++;
+    if(letterStage === 1) {
+        document.getElementById("letter1").classList.remove("hidden");
+    } else if(letterStage === 2) {
+        document.getElementById("letter2").classList.remove("hidden");
+        document.querySelector(".letter-box").style.display = "none";
+    }
+}
+
+// Heart + Sparkle Animation
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 40 + 20) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 5) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 8000);
+
+    const sparkle = document.createElement("div");
+    sparkle.classList.add("sparkle");
+    sparkle.innerHTML = "✨";
+    sparkle.style.left = Math.random() * 100 + "vw";
+    sparkle.style.fontSize = (Math.random() * 25 + 15) + "px";
+    sparkle.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    document.body.appendChild(sparkle);
+    setTimeout(() => sparkle.remove(), 8000);
+}, 300);
+
+// Music Volume
+const music = document.getElementById("music");
+music.volume = 0.2;
+</script>
+
+</body>
+</html>
